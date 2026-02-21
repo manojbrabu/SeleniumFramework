@@ -4,7 +4,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.managers.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.*;
 import utils.ConfigReader;
 
@@ -17,15 +19,29 @@ public class BaseTest {
         System.out.println("Started");
         String browser = ConfigReader.getProperty("browser");
         System.out.println("Browser value: " + browser);
+
         if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
-        } else if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-        } else {
-            throw new RuntimeException("Browser not supported: " + browser);
+
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--headless");   // IMPORTANT
+            options.addArguments("--disable-gpu"); // Optional for stability
+            options.addArguments("--window-size=1920,1080"); // Optional
+
+            driver = new FirefoxDriver(options);
         }
+        else if (browser.equalsIgnoreCase("chrome")) {
+            WebDriverManager.chromedriver().setup();
+
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless=new"); // works better with Chrome 111+
+            options.addArguments("--disable-gpu");
+            options.addArguments("--window-size=1920,1080");
+
+            driver = new ChromeDriver(options);
+        }
+
+
 
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
