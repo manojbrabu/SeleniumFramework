@@ -14,7 +14,7 @@ public class ExtentManager {
         if (extent == null) {
             ExtentSparkReporter reporter =
                     new ExtentSparkReporter(System.getProperty("user.dir")
-                            + "/reports/ExtentReport.html");
+                            + "/test-output/ExtentReport.html");
             reporter.config().setReportName("Automation Test Report");
             reporter.config().setDocumentTitle("Extent Report");
             System.out.println("Extent report will be generated at: "
