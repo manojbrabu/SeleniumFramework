@@ -32,7 +32,7 @@ public class HomePage {
             ExtentManager.test().info("Dashboard displayed: " + displayed);
             return displayed;
         } catch (Exception e) {
-            ExceptionHandling.handleException("Dashboard not displayed", e);
+            ExceptionHandling.handleCriticalException("Dashboard not displayed", e);
             return false;
         }
     }
@@ -43,7 +43,7 @@ public class HomePage {
             admin.click();
             ExtentManager.test().info("Navigated to Admin tab");
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to click Admin tab", e);
+            ExceptionHandling.handleCriticalException("Failed to click Admin tab", e);
         }
     }
 
@@ -53,7 +53,7 @@ public class HomePage {
             leave.click();
             ExtentManager.test().info("Navigated to Leave tab");
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to click Leave tab", e);
+            ExceptionHandling.handleCriticalException("Failed to click Leave tab", e);
         }
     }
 }

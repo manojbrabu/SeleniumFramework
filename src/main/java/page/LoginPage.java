@@ -33,7 +33,7 @@ public class LoginPage {
             txtUsername.sendKeys(user);
             ExtentManager.test().info("Entered Username: " + user);
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to enter username", e);
+            ExceptionHandling.handleCriticalException("Failed to enter username", e);
         }
     }
 
@@ -44,7 +44,7 @@ public class LoginPage {
             txtPassword.sendKeys(pass);
             ExtentManager.test().info("Entered Password");
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to enter password", e);
+            ExceptionHandling.handleCriticalException("Failed to enter password", e);
         }
     }
 
@@ -54,7 +54,7 @@ public class LoginPage {
             btnLoginButton.click();
             ExtentManager.test().info("Clicked Login button");
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to click login button", e);
+            ExceptionHandling.handleCriticalException("Failed to click login button", e);
         }
     }
 }

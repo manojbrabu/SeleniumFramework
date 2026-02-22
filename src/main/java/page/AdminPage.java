@@ -51,7 +51,7 @@ public class AdminPage {
             txtUsername.sendKeys(username);
             ExtentManager.test().info("Enter Username: " + username);
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to enter Username", e);
+            ExceptionHandling.handleCriticalException("Failed to enter Username", e);
         }
     }
 
@@ -61,7 +61,7 @@ public class AdminPage {
             drpUserRole.click();
             ExtentManager.test().info("Role selected: " + role);
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to select role", e);
+            ExceptionHandling.handleNonCriticalException("Failed to select role", e);
         }
     }
 
@@ -71,7 +71,7 @@ public class AdminPage {
             txtEmployeeName.sendKeys(employeeName);
             ExtentManager.test().info("Enter Employee Name: " + employeeName);
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to enter Employee Name", e);
+            ExceptionHandling.handleNonCriticalException("Failed to enter Employee Name", e);
         }
     }
 
@@ -81,7 +81,7 @@ public class AdminPage {
             drpStatus.click();
             ExtentManager.test().info("Status selected: " + status);
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to select status", e);
+            ExceptionHandling.handleNonCriticalException("Failed to select status", e);
         }
     }
 
@@ -91,7 +91,7 @@ public class AdminPage {
             btnSearch.click();
             ExtentManager.test().info("Search button clicked");
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to click Search button", e);
+            ExceptionHandling.handleNonCriticalException("Failed to click Search button", e);
         }
     }
 
@@ -101,7 +101,7 @@ public class AdminPage {
             add.click();
             ExtentManager.test().info("Click Add button");
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to click Add button", e);
+            ExceptionHandling.handleNonCriticalException("Failed to click Add button", e);
         }
     }
 
@@ -128,7 +128,7 @@ public class AdminPage {
                 }
             }
         } catch (Exception e) {
-            ExceptionHandling.handleException("Failed to navigate " + menu + " > " + submenu, e);
+            ExceptionHandling.handleNonCriticalException("Failed to navigate " + menu + " > " + submenu, e);
         }
     }
 
@@ -137,7 +137,7 @@ public class AdminPage {
         try{
             isDisplayed = admin.isDisplayed();
         }catch (Exception e){
-            ExceptionHandling.handleException("Failed to Navigate to Admin Page", e);
+            ExceptionHandling.handleNonCriticalException("Failed to Navigate to Admin Page", e);
         }
         return isDisplayed;
     }

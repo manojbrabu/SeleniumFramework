@@ -1,16 +1,41 @@
 package utils;
 
 import base.BaseTest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import org.testng.Assert;
 
-import java.io.IOException;
+public class ExceptionHandling {
 
-public class ExceptionHandling extends ScreenshotUtils {
-    private static final Logger log = LoggerFactory.getLogger(ExceptionHandling.class);
+    // 🔴 Critical → stop test
+    public static void handleCriticalException(String message, Exception e) {
+        try {
+            String path = ScreenshotUtils.capture(
+                    BaseTest.driver,
+                    "CRITICAL_" + System.currentTimeMillis()
+            );
 
-    public static void handleException(String message, Exception e) {
-        throw new RuntimeException(message, e);
+            ExtentManager.test().fail(message + " - "+e, MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+
+        } catch (Exception ex) {
+            ExtentManager.test().fail("Screenshot failed: " + ex.getMessage());
+        }
+
+        // ❗ stop execution
+        Assert.fail(message, e);
+    }
+
+    // 🟡 Non-critical → continue test
+    public static void handleNonCriticalException(String message, Exception e) {
+        try {
+            String path = ScreenshotUtils.capture(
+                    BaseTest.driver,
+                    "NONCRITICAL_" + System.currentTimeMillis()
+            );
+
+            ExtentManager.test().fail(message + " - "+e, MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+        } catch (Exception ex) {
+            ExtentManager.test().fail("Screenshot failed: " + ex.getMessage());
+        }
+        // ❗ DO NOT throw → test continues
     }
 }
