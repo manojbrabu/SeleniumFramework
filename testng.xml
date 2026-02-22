@@ -6,10 +6,10 @@
         <listener class-name="utils.TestListener"/>
     </listeners>
 
-    <test name="LoginTests">
+    <test name="Login as Admin and Search User">
         <classes>
             <class name="tests.LoginTest"/>
-            <class name="tests.AddLocationTest"/>
-             </classes>
+            <class name="tests.SearchUser"/>
+        </classes>
     </test>
 </suite>

@@ -1,34 +1,46 @@
 package utils;
 
-
-import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-public class TestListener implements ITestListener {
+import static base.BaseTest.driver;
 
-    ExtentReports extent = ExtentManager.getInstance();
-    ThreadLocal<ExtentTest> test = new ThreadLocal<>();
+public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        test.set(extent.createTest(result.getMethod().getMethodName()));
+        ExtentTest test = ExtentManager
+                .getInstance()
+                .createTest(result.getMethod().getMethodName());
+
+        ExtentManager.setTest(test);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        test.get().pass("Test Passed");
+        ExtentManager.test().pass("Test Passed");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        test.get().fail(result.getThrowable());
+        if (ExtentManager.test() != null) {
+            ExtentManager.test().fail(result.getThrowable());
+           ScreenshotUtils.capture(driver, result.getMethod().getMethodName());
+        }
+    }
+
+    @Override
+    public void onTestSkipped(ITestResult result) {
+        if (ExtentManager.test() != null) {
+            ExtentManager.test().skip(result.getThrowable());
+        }
     }
 
     @Override
     public void onFinish(ITestContext context) {
-        extent.flush();
+        ExtentManager.getInstance().flush();
     }
 }

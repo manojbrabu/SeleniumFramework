@@ -11,7 +11,7 @@ public class AddLocationTest extends BaseTest {
     @Test
     public void addLocations(){
         HomePage dashboard = new HomePage(driver);
-        dashboard.clickAdmin();
+        dashboard.navigateToAdmin();
         AdminPage admin = new AdminPage(driver);
         Assert.assertTrue(admin.adminpageIsDisplayed());
         admin.navigateMenu("Organization","Locations");

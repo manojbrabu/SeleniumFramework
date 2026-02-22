@@ -9,7 +9,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.*;
 import utils.ConfigReader;
+import utils.ExtentManager;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 
 public class BaseTest {
@@ -34,15 +36,12 @@ public class BaseTest {
             WebDriverManager.chromedriver().setup();
 
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless=new"); // works better with Chrome 111+
-            options.addArguments("--disable-gpu");
-            options.addArguments("--window-size=1920,1080");
+            //options.addArguments("--headless=new"); // works better with Chrome 111+
+           // options.addArguments("--disable-gpu");
+           // options.addArguments("--window-size=1920,1080");
 
             driver = new ChromeDriver(options);
         }
-
-
-
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get(ConfigReader.getProperty("url"));
@@ -51,4 +50,5 @@ public class BaseTest {
     public void tearDown() {
         driver.quit();
     }
+
 }
