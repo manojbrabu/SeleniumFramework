@@ -24,4 +24,8 @@ public class WaitUtils {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
+    public static void waitForElementTextPresent(WebDriver driver, WebElement element, String vText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.textToBePresentInElement(element,vText));
+    }
 }

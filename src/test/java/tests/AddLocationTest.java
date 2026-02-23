@@ -3,7 +3,7 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import page.AdminPage;
+import page.Admin.AdminPage;
 import page.HomePage;
 
 public class AddLocationTest extends BaseTest {

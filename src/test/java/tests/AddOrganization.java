@@ -2,8 +2,7 @@ package tests;
 
 import base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.Test;
-import page.AdminPage;
+import page.Admin.AdminPage;
 public class AddOrganization extends BaseTest {
 
     public void addLocations(){

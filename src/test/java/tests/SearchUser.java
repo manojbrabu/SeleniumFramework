@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import page.AdminPage;
+import page.Admin.AdminPage;
 import page.HomePage;
 
 import java.io.IOException;
@@ -29,10 +29,10 @@ public void searchUser() throws InterruptedException, IOException {
     adminPage.enterUserName("Manoj1234");
     adminPage.selectRole("Admin");
     //Thread.sleep(2000);
-    adminPage.enterEmployeeName("Manoj");
+    adminPage.enterEmployeeName("test t test");
     adminPage.selectStatus("Enabled");
     //Thread.sleep(2000);
     adminPage.clickSearch();
-    System.out.println("Done");
+    adminPage.fnVerifyUsernameAdded("Manoj1234");
 }
 }

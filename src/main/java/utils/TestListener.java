@@ -26,10 +26,10 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        if (ExtentManager.test() != null) {
+        /*if (ExtentManager.test() != null) {
             ExtentManager.test().fail(result.getThrowable());
            ScreenshotUtils.capture(driver, result.getMethod().getMethodName());
-        }
+        }`*/
     }
 
     @Override

@@ -1,6 +1,7 @@
-package page;
+package page.Admin;
 
-import net.bytebuddy.implementation.bytecode.Throw;
+import base.BaseTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,8 +9,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import utils.ExceptionHandling;
 import utils.ExtentManager;
+import utils.ScreenshotUtils;
 import utils.WaitUtils;
 
 import java.util.List;
@@ -40,6 +43,10 @@ public class AdminPage {
     @FindBy(xpath ="//button[@type='submit']")
     WebElement btnSearch;
 
+    By lblUsername = By.xpath( "//div[@class='oxd-table-card'][1]//div[@role='cell'][2]");
+
+    String vxPathDropdownList = "//*[@role='option' and normalize-space()='###']";
+
     public AdminPage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -55,31 +62,43 @@ public class AdminPage {
         }
     }
 
-    public void selectRole(String role) {
+    public void selectRole(String vRole) {
         try {
             WaitUtils.waitForElementClickable(driver, drpUserRole);
             drpUserRole.click();
-            ExtentManager.test().info("Role selected: " + role);
+            String vOption =  vxPathDropdownList.replace("###",vRole);
+            WebElement options = driver.findElement(By.xpath(vOption));
+            WaitUtils.waitForElementVisible(driver, options);
+            options.click();
+            ExtentManager.test().info("Role selected: " + vRole);
         } catch (Exception e) {
             ExceptionHandling.handleNonCriticalException("Failed to select role", e);
         }
     }
 
-    public void enterEmployeeName(String employeeName) {
+    public void enterEmployeeName(String vEmployeeName) {
         try {
             WaitUtils.waitForElementClickable(driver, txtEmployeeName);
-            txtEmployeeName.sendKeys(employeeName);
-            ExtentManager.test().info("Enter Employee Name: " + employeeName);
+            txtEmployeeName.sendKeys(vEmployeeName);
+            String vOption =  vxPathDropdownList.replace("###",vEmployeeName);
+            WebElement options = driver.findElement(By.xpath(vOption));
+            WaitUtils.waitForElementVisible(driver, options);
+            options.click();
+            ExtentManager.test().info("Enter Employee Name: " + vEmployeeName);
         } catch (Exception e) {
             ExceptionHandling.handleNonCriticalException("Failed to enter Employee Name", e);
         }
     }
 
-    public void selectStatus(String status) {
+    public void selectStatus(String vStatus) {
         try {
             WaitUtils.waitForElementClickable(driver, drpStatus);
             drpStatus.click();
-            ExtentManager.test().info("Status selected: " + status);
+            String vOption =  vxPathDropdownList.replace("###",vStatus);
+            WebElement options = driver.findElement(By.xpath(vOption));
+            WaitUtils.waitForElementVisible(driver, options);
+            options.click();
+            ExtentManager.test().info("Status selected: " + vStatus);
         } catch (Exception e) {
             ExceptionHandling.handleNonCriticalException("Failed to select status", e);
         }
@@ -140,5 +159,21 @@ public class AdminPage {
             ExceptionHandling.handleNonCriticalException("Failed to Navigate to Admin Page", e);
         }
         return isDisplayed;
+    }
+
+    public boolean fnVerifyUsernameAdded(String vUsername){
+        try{
+            WebElement lblUserName = driver.findElement(lblUsername);
+            WaitUtils.waitForElementTextPresent(driver, lblUserName, vUsername);
+
+            String actValue = lblUserName.getText().trim();
+            Assert.assertEquals(actValue, vUsername);
+            ExtentManager.test().pass("Username '"+actValue+"' is added and displayed", MediaEntityBuilder.createScreenCaptureFromPath(ScreenshotUtils.capture(driver, "VerifyUser")).build());
+
+        }catch (Exception e){
+            ExceptionHandling.handleNonCriticalException("Failed to verify username", e);
+        }
+
+        return true;
     }
 }

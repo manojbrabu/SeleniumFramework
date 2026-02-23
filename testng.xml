@@ -9,6 +9,7 @@
     <test name="Login as Admin and Search User">
         <classes>
             <class name="tests.LoginTest"/>
+            <class name="tests.AddUserTest"/>
             <class name="tests.SearchUser"/>
         </classes>
     </test>
