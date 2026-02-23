@@ -29,7 +29,7 @@ public void searchUser() throws InterruptedException, IOException {
     adminPage.enterUserName("Manoj1234");
     adminPage.selectRole("Admin");
     //Thread.sleep(2000);
-    adminPage.enterEmployeeName("test t test");
+    adminPage.enterEmployeeName("Orange Test");
     adminPage.selectStatus("Enabled");
     //Thread.sleep(2000);
     adminPage.clickSearch();
