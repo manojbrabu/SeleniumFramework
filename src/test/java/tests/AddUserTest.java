@@ -24,7 +24,7 @@ public class AddUserTest extends BaseTest {
         admin.clickAdd();
         AddUser adduser = new AddUser(driver);
         adduser.selectUserRole("Admin");
-        adduser.enterEmployeeName("test t test");
+        adduser.enterEmployeeName("Orange Test");
         adduser.selectStatus("Enabled");
         adduser.enterUsername("Manoj1234");
         adduser.enterPassword("Manoj1234");
