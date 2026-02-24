@@ -11,8 +11,8 @@ public class AddUserTest extends BaseTest {
 
 
 
-    @Test
-    public void fnAddUserTest(){
+    @Test(description = "TC02_Verify user is able to add new users")
+    public void addUserTest(){
 
        //Navigate to Admin Page
         HomePage homepage = new HomePage(driver);
@@ -24,7 +24,7 @@ public class AddUserTest extends BaseTest {
         admin.clickAdd();
         AddUser adduser = new AddUser(driver);
         adduser.selectUserRole("Admin");
-        adduser.enterEmployeeName("test t test");
+        adduser.enterEmployeeName("Orange Test");
         adduser.selectStatus("Enabled");
         adduser.enterUsername("Manoj1234");
         adduser.enterPassword("Manoj1234");

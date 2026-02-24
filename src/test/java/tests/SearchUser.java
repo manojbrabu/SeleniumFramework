@@ -12,8 +12,8 @@ import java.io.IOException;
 public class SearchUser extends BaseTest{
     private static final Logger log = LoggerFactory.getLogger(SearchUser.class);
 
-    @Test
-public void searchUser() throws InterruptedException, IOException {
+    @Test(description = "TC03_Verify user is able to search Newly added user")
+public void searchUserTest() throws InterruptedException, IOException {
     //Navigate to Admin Page
     HomePage homepage = new HomePage(driver);
     homepage.navigateToAdmin();
@@ -29,7 +29,7 @@ public void searchUser() throws InterruptedException, IOException {
     adminPage.enterUserName("Manoj1234");
     adminPage.selectRole("Admin");
     //Thread.sleep(2000);
-    adminPage.enterEmployeeName("test t test");
+    adminPage.enterEmployeeName("Orange Test");
     adminPage.selectStatus("Enabled");
     //Thread.sleep(2000);
     adminPage.clickSearch();

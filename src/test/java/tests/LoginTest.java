@@ -10,7 +10,7 @@ import page.LoginPage;
 //@Listeners(utils.TestListener.class)
 @Slf4j
 public class LoginTest extends BaseTest {
-    @Test
+    @Test(description = "TC01_Verify the valid login")
     public void validLoginTest() {
        LoginPage login = new LoginPage(driver);
        login.enterUserName("Admin");
