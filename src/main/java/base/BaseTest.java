@@ -1,54 +1,49 @@
 package base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.github.bonigarcia.wdm.managers.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.*;
 import utils.ConfigReader;
-import utils.ExtentManager;
 
-import java.lang.reflect.Method;
 import java.time.Duration;
 
 public class BaseTest {
-    public static WebDriver driver;
-    @BeforeSuite
+
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
+    public static WebDriver getDriver() {
+        return driver.get();
+    }
+
+    @BeforeTest(alwaysRun = true)
     public void setUp() {
-        System.out.println("Started");
-        String browser = ConfigReader.getProperty("browser");
-        System.out.println("Browser value: " + browser);
 
-        if (browser.equalsIgnoreCase("firefox")) {
-            WebDriverManager.firefoxdriver().setup();
+        if (driver.get() == null) {
 
-            FirefoxOptions options = new FirefoxOptions();
-            options.addArguments("--headless");   // IMPORTANT
-            options.addArguments("--disable-gpu"); // Optional for stability
-            options.addArguments("--window-size=1920,1080"); // Optional
+            String browser = ConfigReader.getProperty("browser");
 
-            driver = new FirefoxDriver(options);
+            if (browser.equalsIgnoreCase("chrome")) {
+                WebDriverManager.chromedriver().setup();
+                driver.set(new ChromeDriver());
+            } else {
+                WebDriverManager.firefoxdriver().setup();
+                driver.set(new FirefoxDriver());
+            }
+
+            getDriver().manage().window().maximize();
+            getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            getDriver().get(ConfigReader.getProperty("url"));
         }
-        else if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
-
-            ChromeOptions options = new ChromeOptions();
-            //options.addArguments("--headless=new"); // works better with Chrome 111+
-            //options.addArguments("--disable-gpu");
-           //options.addArguments("--window-size=1920,1080");
-
-            driver = new ChromeDriver(options);
-        }
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get(ConfigReader.getProperty("url"));
     }
-    @AfterSuite
+
+    @AfterTest(alwaysRun = true)
     public void tearDown() {
-        driver.quit();
-    }
 
+        if (driver.get() != null) {
+            getDriver().quit();
+            driver.remove();
+        }
+    }
 }

@@ -8,11 +8,11 @@ import page.HomePage;
 
 public class AddLocationTest extends BaseTest {
 
-    @Test
+    @Test(description = "TC04_Verify User is able to Add location")
     public void addLocations(){
-        HomePage dashboard = new HomePage(driver);
+        HomePage dashboard = new HomePage(BaseTest.getDriver());
         dashboard.navigateToAdmin();
-        AdminPage admin = new AdminPage(driver);
+        AdminPage admin = new AdminPage(BaseTest.getDriver());
         Assert.assertTrue(admin.adminpageIsDisplayed());
         admin.navigateMenu("Organization","Locations");
     }

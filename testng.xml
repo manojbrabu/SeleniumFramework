@@ -1,15 +1,26 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="AutomationSuite">
+<suite name="AutomationSuite" parallel="tests" thread-count="3">
 
     <listeners>
         <listener class-name="utils.TestListener"/>
     </listeners>
 
-    <test name="Login as Admin and Search User">
+    <test name="Login Test and Add Location">
         <classes>
             <class name="tests.LoginTest"/>
+            <class name="tests.AddLocationTest"/>
+        </classes>
+    </test>
+
+    <test name="Login and Add User">
+        <classes>
             <class name="tests.AddUserTest"/>
+        </classes>
+    </test>
+
+    <test name="Login and Search User">
+        <classes>
             <class name="tests.SearchUser"/>
         </classes>
     </test>

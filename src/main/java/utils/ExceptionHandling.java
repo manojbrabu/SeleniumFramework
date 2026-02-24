@@ -10,7 +10,7 @@ public class ExceptionHandling {
     public static void handleCriticalException(String message, Exception e) {
         try {
             String path = ScreenshotUtils.capture(
-                    BaseTest.driver,
+                    BaseTest.getDriver(),
                     "CRITICAL_" + System.currentTimeMillis()
             );
 
@@ -28,7 +28,7 @@ public class ExceptionHandling {
     public static void handleNonCriticalException(String message, Exception e) {
         try {
             String path = ScreenshotUtils.capture(
-                    BaseTest.driver,
+                    BaseTest.getDriver(),
                     "NONCRITICAL_" + System.currentTimeMillis()
             );
 

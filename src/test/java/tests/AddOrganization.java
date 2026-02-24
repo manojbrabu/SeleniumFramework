@@ -6,7 +6,7 @@ import page.Admin.AdminPage;
 public class AddOrganization extends BaseTest {
 
     public void addLocations(){
-        AdminPage admin = new AdminPage(driver);
+        AdminPage admin = new AdminPage(BaseTest.getDriver());
         Assert.assertTrue(admin.adminpageIsDisplayed());
         admin.navigateMenu("Organization","Locations");
     }

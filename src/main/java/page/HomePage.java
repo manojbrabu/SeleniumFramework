@@ -21,6 +21,12 @@ public class HomePage {
     @FindBy(xpath ="//span[text()='Leave']")
     WebElement leave;
 
+    @FindBy(xpath = "//p[@class='oxd-userdropdown-name]")
+    WebElement userdropdown;
+
+    @FindBy(xpath = "//a[@href='/web/index.php/auth/logout']")
+    WebElement logout;
+
     public HomePage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -29,7 +35,7 @@ public class HomePage {
     public boolean dashboardIsDisplayed(){
         try {
             boolean displayed = dashboard.isDisplayed();
-            ExtentManager.test().info("Dashboard displayed: " + displayed);
+            //ExtentManager.test().info("Dashboard displayed: ");
             return displayed;
         } catch (Exception e) {
             ExceptionHandling.handleCriticalException("Dashboard not displayed", e);
@@ -44,6 +50,24 @@ public class HomePage {
             ExtentManager.test().info("Navigated to Admin tab");
         } catch (Exception e) {
             ExceptionHandling.handleCriticalException("Failed to click Admin tab", e);
+        }
+    }
+
+    public void navigateToUsermenu(){
+        try {
+           userdropdown.click();
+            ExtentManager.test().info("Click on user dropdown");
+        } catch (Exception e) {
+            ExceptionHandling.handleCriticalException("Failed to click user dropdown", e);
+        }
+    }
+
+    public void clickLogout(){
+        try {
+            logout.click();
+            ExtentManager.test().info("Click on logout");
+        } catch (Exception e) {
+            ExceptionHandling.handleCriticalException("Failed to click logout", e);
         }
     }
 
