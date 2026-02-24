@@ -6,8 +6,6 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import static base.BaseTest.driver;
-
 public class TestListener implements ITestListener {
 
     @Override
