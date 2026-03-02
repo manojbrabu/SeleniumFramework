@@ -32,7 +32,6 @@ public class BaseTest {
                 //options.addArguments("headless");
                 WebDriverManager.firefoxdriver().setup();
                 driver.set(new FirefoxDriver());
-
             }
 
             getDriver().manage().window().maximize();

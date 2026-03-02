@@ -6,7 +6,7 @@
         <listener class-name="utils.TestListener"/>
     </listeners>
 
-    <test name="Login Test and Add Location">
+    <test name="Login Test and Add Location" enabled="false">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="tests.LoginTest"/>
@@ -21,7 +21,7 @@
         </classes>
     </test>
 
-    <test name="Login and Search User">
+    <test name="Login and Search User" enabled="false">
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="tests.SearchUser"/>

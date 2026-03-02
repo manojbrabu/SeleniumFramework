@@ -36,10 +36,11 @@ public class AddUserTest extends BaseTest {
         adduser.selectUserRole("Admin");
         adduser.enterEmployeeName("Orange Test");
         adduser.selectStatus("Enabled");
-        adduser.enterUsername("Manoj1234");
+        adduser.enterUsername("Manoj12346");
         adduser.enterPassword("Manoj1234");
         adduser.enterConfirmPassword("Manoj1234");
         adduser.saveUser();
+        admin.fvVerifySuccess();
     }
 
 }
