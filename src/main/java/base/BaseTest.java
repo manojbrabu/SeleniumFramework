@@ -40,7 +40,7 @@ public class BaseTest {
             getDriver().get(ConfigReader.getProperty("url"));
         }
     }
-
+    //After Test
     @AfterTest(alwaysRun = true)
     public void tearDown() {
         if (driver.get() != null) {
