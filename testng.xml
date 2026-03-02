@@ -7,6 +7,7 @@
     </listeners>
 
     <test name="Login Test and Add Location">
+        <parameter name="browser" value="chrome"/>
         <classes>
             <class name="tests.LoginTest"/>
             <class name="tests.AddLocationTest"/>
@@ -14,12 +15,14 @@
     </test>
 
     <test name="Login and Add User">
+        <parameter name="browser" value="chrome"/>
         <classes>
             <class name="tests.AddUserTest"/>
         </classes>
     </test>
 
     <test name="Login and Search User">
+        <parameter name="browser" value="firefox"/>
         <classes>
             <class name="tests.SearchUser"/>
         </classes>
