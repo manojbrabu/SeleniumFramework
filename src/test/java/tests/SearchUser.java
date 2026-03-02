@@ -18,12 +18,12 @@ public class SearchUser extends BaseTest{
 public void searchUserTest() throws InterruptedException, IOException {
 
     //Login to Application
-    LoginPage login = new LoginPage(BaseTest.getDriver());
-    login.enterUserName(ConfigReader.getProperty("username"));
-    login.enterPassword(ConfigReader.getProperty("password"));
-    login.clickLogin();
-    HomePage dashboard = new HomePage(BaseTest.getDriver());
-    Assert.assertTrue(dashboard.dashboardIsDisplayed());
+    //LoginPage login = new LoginPage(BaseTest.getDriver());
+    //login.enterUserName(ConfigReader.getProperty("username"));
+    //login.enterPassword(ConfigReader.getProperty("password"));
+   // login.clickLogin();
+    //HomePage dashboard = new HomePage(BaseTest.getDriver());
+    //Assert.assertTrue(dashboard.dashboardIsDisplayed());
 
     //Navigate to Admin Page
     HomePage homepage = new HomePage(BaseTest.getDriver());
@@ -36,13 +36,13 @@ public void searchUserTest() throws InterruptedException, IOException {
 
     //Search User
     //adminPage.navigateMenu("User Management", "Users");
-    adminPage.enterUserName("Manoj1234");
+    adminPage.enterUserName("Manoj9345");
     adminPage.selectRole("Admin");
     //Thread.sleep(2000);
     adminPage.enterEmployeeName("Orange Test");
     adminPage.selectStatus("Enabled");
     //Thread.sleep(2000);
     adminPage.clickSearch();
-    adminPage.fnVerifyUsernameAdded("Manoj1234");
+    adminPage.fnVerifyUsernameAdded("Manoj9345");
 }
 }

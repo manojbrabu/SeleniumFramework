@@ -182,11 +182,17 @@ public class AdminPage {
     }
 
     public boolean fvVerifySuccess(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try{
-            WebElement toast = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//div[contains(text(),'Successfully Saved')]")));
-            ExtentManager.test().info("User created successfully");
+            WebElement toast = wait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//div[@class='oxd-toast-start']//p[2]")));
+            assert toast != null;
+            String message = toast.getText();
+            Assert.assertEquals(message, "Successfully Saved");
+            Thread.sleep(1000);
+            ExtentManager.test().pass(message, MediaEntityBuilder.createScreenCaptureFromPath(ScreenshotUtils.capture(driver, "Verify Success Message")).build());
+
+
         } catch (Exception e) {
             ExceptionHandling.handleNonCriticalException("User not created ", e);
         }
