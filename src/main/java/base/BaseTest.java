@@ -28,8 +28,8 @@ public class BaseTest {
                 WebDriverManager.chromedriver().setup();
                 driver.set(new ChromeDriver());
             } else if (browser.equalsIgnoreCase("firefox")) {
-                FirefoxOptions options = new FirefoxOptions();
-                options.addArguments("headless");
+                //FirefoxOptions options = new FirefoxOptions();
+                //options.addArguments("headless");
                 WebDriverManager.firefoxdriver().setup();
                 driver.set(new FirefoxDriver());
 
