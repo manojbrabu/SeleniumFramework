@@ -146,6 +146,7 @@ public class AdminPage {
                     break;
                 }
             }
+            ExtentManager.test().info("Navigated to "+menu+">"+submenu);
         } catch (Exception e) {
             ExceptionHandling.handleNonCriticalException("Failed to navigate " + menu + " > " + submenu, e);
         }
