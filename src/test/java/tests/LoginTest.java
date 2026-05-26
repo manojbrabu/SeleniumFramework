@@ -22,5 +22,6 @@ public class LoginTest extends BaseTest {
         login.loginOrangeApplication(dataset.get("username").asText(),dataset.get("password").asText());
         LogoutOrange logout = new LogoutOrange();
         logout.logoutOrangeApplication();
+        //Added the comment for update the githup
     }
 }
