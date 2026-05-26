@@ -1,12 +1,12 @@
 package page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utils.ExceptionHandling;
-import utils.ExtentManager;
-import utils.WaitUtils;
+import utils.ElementUtil;
+import Enum.Execution;
 
 public class HomePage {
 
@@ -18,10 +18,13 @@ public class HomePage {
     @FindBy(xpath ="//span[text()='Admin']")
     WebElement admin;
 
+    String xPathTopMenu = "//nav[@role='navigation' and @aria-label='Topbar Menu']//li/*[normalize-space(text())='***']";
+    String xPathSubmenu = "//ul[@class='oxd-dropdown-menu']/li/a[text()='***']";
+
     @FindBy(xpath ="//span[text()='Leave']")
     WebElement leave;
 
-    @FindBy(xpath = "//p[@class='oxd-userdropdown-name]")
+    @FindBy(xpath = "//p[@class='oxd-userdropdown-name']")
     WebElement userdropdown;
 
     @FindBy(xpath = "//a[@href='/web/index.php/auth/logout']")
@@ -32,52 +35,39 @@ public class HomePage {
         PageFactory.initElements(driver, this);
     }
 
-    public boolean dashboardIsDisplayed(){
-        try {
-            boolean displayed = dashboard.isDisplayed();
-            //ExtentManager.test().info("Dashboard displayed: ");
-            return displayed;
-        } catch (Exception e) {
-            ExceptionHandling.handleCriticalException("Dashboard not displayed", e);
-            return false;
-        }
+    public boolean isDashboardDisplayed(){
+       return ElementUtil.isDisplayed(dashboard, "Dashboard", Execution.STOP);
     }
 
-    public void navigateToAdmin(){
-        try {
-            WaitUtils.waitForElementClickable(driver, admin);
-            admin.click();
-            ExtentManager.test().info("Navigated to Admin tab");
-        } catch (Exception e) {
-            ExceptionHandling.handleCriticalException("Failed to click Admin tab", e);
-        }
+    public boolean navigateToAdmin(){
+       return ElementUtil.click(admin, "Admin Tab", Execution.STOP);
     }
 
-    public void navigateToUsermenu(){
-        try {
-           userdropdown.click();
-            ExtentManager.test().info("Click on user dropdown");
-        } catch (Exception e) {
-            ExceptionHandling.handleCriticalException("Failed to click user dropdown", e);
-        }
+    public boolean navigateToLeave(){
+        return ElementUtil.click(leave, "Leave Tab", Execution.STOP);
     }
 
-    public void clickLogout(){
-        try {
-            logout.click();
-            ExtentManager.test().info("Click on logout");
-        } catch (Exception e) {
-            ExceptionHandling.handleCriticalException("Failed to click logout", e);
-        }
+   public boolean clickTopMenu(String vMenu){
+        By byElement =By.xpath(xPathTopMenu.replace("***",vMenu));
+        WebElement element = ElementUtil.findElement(driver, byElement,vMenu +" Top Menu");
+        if(element==null) return false;
+        return ElementUtil.click(element,vMenu+" Top Menu");
+   }
+
+    public boolean navigateToMenu(String vTopMenu, String vSubMenu){
+        Boolean topMenu = clickTopMenu(vTopMenu);
+        if(vSubMenu.equals("")) return topMenu;
+
+        By byElement =By.xpath(xPathSubmenu.replace("***",vSubMenu));
+        WebElement element = ElementUtil.findElement(driver, byElement,vSubMenu +" Top Menu");
+        if(element==null) return false;
+        return ElementUtil.click(element,vSubMenu+ "Sub Menu", Execution.STOP);
+    }
+    public boolean clickUserDropdown(){
+        return ElementUtil.click(userdropdown,"Userdrodown",Execution.STOP);
     }
 
-    public void navigateToLeave(){
-        try {
-            WaitUtils.waitForElementClickable(driver, leave);
-            leave.click();
-            ExtentManager.test().info("Navigated to Leave tab");
-        } catch (Exception e) {
-            ExceptionHandling.handleCriticalException("Failed to click Leave tab", e);
-        }
+    public boolean clickLogout(){
+        return ElementUtil.click(logout, "Logout Button");
     }
 }

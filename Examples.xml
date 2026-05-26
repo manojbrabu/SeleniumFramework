@@ -1,0 +1,49 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Dataset Suite" parallel="tests" thread-count="3">
+
+    <listeners>
+        <listener class-name="utils.TestListener"/>
+    </listeners>
+    <test name="SwitchWindow" enabled="false">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="url" value="https://demo.automationtesting.in/Windows.html"/>
+        <groups>
+            <run>
+                <include name="Switch Window"></include>
+            </run>
+        </groups>
+    </test>
+
+    <test name="SwitchWindow" enabled="false">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="url" value="https://vinothqaacademy.com/mouse-event/"/>
+        <groups>
+            <run>
+                <include name="Actions"></include>
+            </run>
+        </groups>
+    </test>
+
+    <test name="FluentWait" enabled="false">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="url" value="https://www.hyrtutorials.com/p/waits-demo.html"/>
+        <groups>
+            <run>
+                <include name="FluentWait"></include>
+            </run>
+        </groups>
+    </test>
+    <test name="Scroll" enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="url" value="https://webflow.com/made-in-webflow/scrollmagic"/>
+        <groups>
+            <run>
+                <include name="Scroll"></include>
+            </run>
+        </groups>
+    </test>
+    <packages>
+        <package name="tests"></package>
+    </packages>
+</suite>

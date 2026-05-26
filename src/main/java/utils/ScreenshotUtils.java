@@ -24,11 +24,11 @@ public class ScreenshotUtils {
             FileUtils.copyFile(src, new File(fullPath));
 
             // attach to extent
-            if (ExtentManager.test() != null) {
+            /*if (ExtentManager.test() != null) {
                 ExtentManager.test().addScreenCaptureFromPath(fullPath);
                 ExtentManager.test().info("Screenshot: " + fullPath);
             }
-
+*/
         } catch (IOException e) {
             if (ExtentManager.test() != null) {
                 ExtentManager.test().warning("Screenshot failed: " + e.getMessage());

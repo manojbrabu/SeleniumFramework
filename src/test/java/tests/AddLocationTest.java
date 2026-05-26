@@ -1,19 +1,27 @@
 package tests;
 
+import BusinessFlow.LoginOrange;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import page.Admin.AdminPage;
+import page.AdminPage;
 import page.HomePage;
+import utils.ConfigReader;
+import utils.DriverManager;
 
 public class AddLocationTest extends BaseTest {
 
     @Test(description = "TC04_Verify User is able to Add location")
     public void addLocations(){
-        HomePage dashboard = new HomePage(BaseTest.getDriver());
+
+        //Login to Application
+        LoginOrange login = new LoginOrange();
+        login.loginOrangeApplication(ConfigReader.getProperty("username"), ConfigReader.getProperty("password"));
+
+        HomePage dashboard = new HomePage(DriverManager.getDriver());
         dashboard.navigateToAdmin();
-        AdminPage admin = new AdminPage(BaseTest.getDriver());
-        Assert.assertTrue(admin.adminpageIsDisplayed());
-        admin.navigateMenu("Organization","Locations");
+        AdminPage admin = new AdminPage(DriverManager.getDriver());
+        Assert.assertTrue(admin.isAdminPageDisplayed());
+        Assert.assertTrue(dashboard.navigateToMenu("Organization","Locations"));
     }
 }

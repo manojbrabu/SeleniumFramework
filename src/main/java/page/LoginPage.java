@@ -1,23 +1,29 @@
 package page;
 
+import Annotations.Mandatory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.ElementUtil;
 import utils.ExceptionHandling;
 import utils.ExtentManager;
 import utils.WaitUtils;
+import Enum.Execution;
 
 public class LoginPage {
 
     WebDriver driver;
 
+    @Mandatory
     @FindBy(name = "username")
     WebElement txtUsername;
 
+    @Mandatory
     @FindBy(name = "password")
     WebElement txtPassword;
 
+    @Mandatory
     @FindBy(xpath = "//button[@type='submit']")
     WebElement btnLoginButton;
 
@@ -26,35 +32,15 @@ public class LoginPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void enterUserName(String user) {
-        try {
-            WaitUtils.waitForElementVisible(driver, txtUsername);
-            txtUsername.clear();
-            txtUsername.sendKeys(user);
-            ExtentManager.test().info("Entered Username: " + user);
-        } catch (Exception e) {
-            ExceptionHandling.handleCriticalException("Failed to enter username", e);
-        }
+    public boolean enterUserName(String user) {
+         return ElementUtil.sendKeys(txtUsername, user, "Username", Execution.STOP);
     }
 
-    public void enterPassword(String pass) {
-        try {
-            WaitUtils.waitForElementVisible(driver, txtPassword);
-            txtPassword.clear();
-            txtPassword.sendKeys(pass);
-            ExtentManager.test().info("Entered Password");
-        } catch (Exception e) {
-            ExceptionHandling.handleCriticalException("Failed to enter password", e);
-        }
+    public boolean enterPassword(String pass) {
+          return ElementUtil.sendKeys(txtPassword, pass, "Password", Execution.STOP);
     }
 
-    public void clickLogin() {
-        try {
-            WaitUtils.waitForElementClickable(driver, btnLoginButton);
-            btnLoginButton.click();
-            ExtentManager.test().info("Clicked Login button");
-        } catch (Exception e) {
-            ExceptionHandling.handleCriticalException("Failed to click login button", e);
-        }
+    public boolean clickLogin() {
+        return ElementUtil.click(btnLoginButton, "Login button", Execution.STOP);
     }
 }

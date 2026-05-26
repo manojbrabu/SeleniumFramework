@@ -1,6 +1,9 @@
 package tests;
 
+import BusinessFlow.LoginOrange;
+import BusinessFlow.LogoutOrange;
 import base.BaseTest;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -8,18 +11,16 @@ import org.testng.annotations.Test;
 import page.HomePage;
 import page.LoginPage;
 import utils.ConfigReader;
+import utils.DriverManager;
 
-//@Listeners(utils.TestListener.class)
-@Slf4j
+
+@Test
 public class LoginTest extends BaseTest {
-    @Test(description = "TC01_Verify the valid login")
-    public void validLoginTest() {
-
-       LoginPage login = new LoginPage(BaseTest.getDriver());
-       login.enterUserName(ConfigReader.getProperty("username"));
-       login.enterPassword(ConfigReader.getProperty("password"));
-       login.clickLogin();
-       HomePage dashboard = new HomePage(BaseTest.getDriver());
-       Assert.assertTrue(dashboard.dashboardIsDisplayed());
+    @Test(description = "TC01_Verify the valid login", dataProvider = "apiData", dataProviderClass = utils.TestDataUtil.class)
+    public void validLoginTest(JsonNode dataset) {
+        LoginOrange login = new LoginOrange();
+        login.loginOrangeApplication(dataset.get("username").asText(),dataset.get("password").asText());
+        LogoutOrange logout = new LogoutOrange();
+        logout.logoutOrangeApplication();
     }
 }

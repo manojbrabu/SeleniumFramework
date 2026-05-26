@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Dataset Suite" parallel="tests" thread-count="3">
+
+    <listeners>
+        <listener class-name="utils.TestListener"/>
+    </listeners>
+
+    <test name="Login Test" enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="testcaseid" value="TC_001"/>
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+</suite>
+
