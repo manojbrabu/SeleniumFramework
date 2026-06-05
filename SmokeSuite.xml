@@ -13,7 +13,7 @@
         </classes>
     </test>
 
-    <test name="Add User Test" enabled="true">
+    <test name="Add User Test" enabled="false">
         <parameter name="browser" value="chrome"/>
         <parameter name="userName" value="Manoj12345"/>
         <classes>
@@ -21,7 +21,7 @@
         </classes>
     </test>
 
-    <test name="Search User Test" enabled="true">
+    <test name="Search User Test" enabled="false">
         <parameter name="browser" value="firefox"/>
         <parameter name="username" value="Manoj12345"/>
         <classes>

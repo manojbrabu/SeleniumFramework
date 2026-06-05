@@ -16,10 +16,12 @@ import utils.DriverManager;
 
 @Test(groups = {"CR123","regression"})
 public class LoginTest extends BaseTest {
-    @Test(description = "TC01_Verify the valid login", dataProvider = "apiData", dataProviderClass = utils.TestDataUtil.class)
-    public void validLoginTest(JsonNode dataset) {
+    @Test(description = "TC01_Verify the valid login"/*, dataProvider = "apiData", dataProviderClass = utils.TestDataUtil.class*/)
+    public void validLoginTest() {
         LoginOrange login = new LoginOrange();
-        login.loginOrangeApplication(dataset.get("username").asText(),dataset.get("password").asText());
+        String userName = ConfigReader.getProperty("username");
+        String password = ConfigReader.getProperty("password");
+        login.loginOrangeApplication(userName,password);
         LogoutOrange logout = new LogoutOrange();
         logout.logoutOrangeApplication();
     }
