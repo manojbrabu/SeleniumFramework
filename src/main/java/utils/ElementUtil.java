@@ -86,8 +86,8 @@ public class ElementUtil {
     public static WebElement findElement(WebDriver driver, By byElement, String elementName){
 
         try{
+            WaitUtils.visibilityOfElementLocatiod(byElement);
             WebElement element = driver.findElement(byElement);
-            WaitUtils.visibilityOf(element);
             return element;
         }catch (Exception e){
             ExtentManager.test().fail("Element '" + elementName + "' is NOT displayed "+ " - " + e.getMessage(),

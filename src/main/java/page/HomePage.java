@@ -18,8 +18,8 @@ public class HomePage {
     @FindBy(xpath ="//span[text()='Admin']")
     WebElement admin;
 
-    String xPathTopMenu = "//nav[@role='navigation' and @aria-label='Topbar Menu']//li/*[normalize-space(text())='***']";
-    String xPathSubmenu = "//ul[@class='oxd-dropdown-menu']/li/a[text()='***']";
+    private final String xPathTopMenu = "//nav[@role='navigation' and @aria-label='Topbar Menu']//li/*[normalize-space(text())='%s']";
+    private final String xPathSubmenu = "//ul[@class='oxd-dropdown-menu']/li/a[text()='%s']";
 
     @FindBy(xpath ="//span[text()='Leave']")
     WebElement leave;
@@ -48,8 +48,8 @@ public class HomePage {
     }
 
    public boolean clickTopMenu(String vMenu){
-        By byElement =By.xpath(xPathTopMenu.replace("***",vMenu));
-        WebElement element = ElementUtil.findElement(driver, byElement,vMenu +" Top Menu");
+        String dynamicxPath = String.format(xPathTopMenu,vMenu);
+        WebElement element = ElementUtil.findElement(driver, By.xpath(dynamicxPath),vMenu +" Top Menu");
         if(element==null) return false;
         return ElementUtil.click(element,vMenu+" Top Menu");
    }
@@ -58,8 +58,9 @@ public class HomePage {
         Boolean topMenu = clickTopMenu(vTopMenu);
         if(vSubMenu.equals("")) return topMenu;
 
-        By byElement =By.xpath(xPathSubmenu.replace("***",vSubMenu));
-        WebElement element = ElementUtil.findElement(driver, byElement,vSubMenu +" Top Menu");
+        String dynamicxPath = String.format(xPathSubmenu,vSubMenu);
+        //System.out.println();
+        WebElement element = ElementUtil.findElement(driver, By.xpath(dynamicxPath),vSubMenu);
         if(element==null) return false;
         return ElementUtil.click(element,vSubMenu+ "Sub Menu", Execution.STOP);
     }
