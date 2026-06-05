@@ -1,5 +1,6 @@
 package tests;
 
+import io.restassured.RestAssured;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,7 +18,10 @@ import utils.DriverManager;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.Set;
+import java.util.*;
+
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
 
 public class Example {
     Wait<WebDriver> wait;
@@ -127,10 +131,44 @@ public class Example {
 
        js.executeScript("arguments[0].scrollIntoView({behaviour:'smooth', block:'center'})",iPhone);
        Thread.sleep(3000);
+       //Aligns the top of the element with the top of the visible screen area.|Equivalent to: scrollIntoView({block: 'start'})
        js.executeScript("arguments[0].scrollIntoView(true)", iPhone);
        Thread.sleep(3000);
+       //Aligns the bottom of the element with the bottom of the visible screen area.|Equivalent to: scrollIntoView({block: 'end'})
        js.executeScript("arguments[0].scrollIntoView(false)", iPhone);
-       Thread.sleep(3000);
     }
 
+    @Test(description = "List comparison", groups="listCompare")
+    public static void fnCompareList(){
+        List<String> value1 = new LinkedList<>();
+        value1.add("Manoj");
+        value1.add("Uma");
+        List<String> value2 = new LinkedList<>();
+        value2.add("Manoj");
+        value2.add("uma");
+
+        Assert.assertEquals(value1, value2);
+    }
+    //Data Table concepts
+    public static void fnDataTable(){
+
+                List<List<String>> table = new ArrayList<>();
+
+                // Row 1
+                table.add(Arrays.asList("ID", "Name", "Age"));
+
+                // Row 2
+                table.add(Arrays.asList("1", "Manoj", "25"));
+
+                // Row 3
+                table.add(Arrays.asList("2", "Ravi", "30"));
+
+                // Retrieve data
+                for (List<String> row : table) {
+                    for (String col : row) {
+                        System.out.print(col + " ");
+                    }
+                    System.out.println();
+                }
+            }
 }

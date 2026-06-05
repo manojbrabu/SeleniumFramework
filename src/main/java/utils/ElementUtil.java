@@ -106,7 +106,7 @@ public class ElementUtil {
              ExtentManager.test().pass("Expected Text '"+expText+"' is matched with Actual text '"+accText+"'");
          }
          else{
-             ExtentManager.test().pass("Expected Text '"+expText+"' is matched with Actual text '"+accText+"'");
+             ExtentManager.test().fail("Expected Text '"+expText+"' is NOT matched with Actual text '"+accText+"'");
          }
          return result;
         }catch (Exception e){

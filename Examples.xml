@@ -20,7 +20,8 @@
         <parameter name="url" value="https://vinothqaacademy.com/mouse-event/"/>
         <groups>
             <run>
-                <include name="Actions"></include>
+                 <include name="Actions"></include>
+                <include name="listCompare"/>
             </run>
         </groups>
     </test>

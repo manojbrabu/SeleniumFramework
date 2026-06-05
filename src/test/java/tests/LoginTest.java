@@ -14,7 +14,7 @@ import utils.ConfigReader;
 import utils.DriverManager;
 
 
-@Test
+@Test(groups = {"CR123","regression"})
 public class LoginTest extends BaseTest {
     @Test(description = "TC01_Verify the valid login", dataProvider = "apiData", dataProviderClass = utils.TestDataUtil.class)
     public void validLoginTest(JsonNode dataset) {

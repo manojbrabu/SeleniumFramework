@@ -12,6 +12,7 @@ import page.HomePage;
 import page.LoginPage;
 import utils.ConfigReader;
 import utils.DriverManager;
+import utils.ExtentManager;
 
 public class AddUserTest extends BaseTest {
 
