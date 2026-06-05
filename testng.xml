@@ -3,5 +3,9 @@
     <suite-files>
         <suite-file path="RegressionSuite.xml"/>
         <suite-file path="SmokeSuite.xml"/>
+        <suite-file path="ReadExcel.xml"/>
+        <suite-file path="LambdaExample.xml"/>
+        <suite-file path="Examples.xml"/>
+        <suite-file path="Datasetup.xml"/>
     </suite-files>
 </suite>
