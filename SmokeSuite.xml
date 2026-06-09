@@ -17,7 +17,7 @@
         <parameter name="browser" value="chrome"/>
         <parameter name="userName" value="Manoj12345"/>
         <classes>
-            <class name="tests.AddUserTest"/>
+            <class name="tests.AddUserPage"/>
         </classes>
     </test>
 

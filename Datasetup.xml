@@ -10,7 +10,7 @@
         <parameter name="browser" value="chrome"/>
         <parameter name="testcaseid" value="TC_001"/>
         <classes>
-            <class name="tests.LoginTest"/>
+            <class name="tests.LoginPage"/>
         </classes>
     </test>
 </suite>

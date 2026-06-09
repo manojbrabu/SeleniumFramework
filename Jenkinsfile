@@ -33,6 +33,11 @@ pipeline {
             defaultValue: 'http://REMOTE_MACHINE_IP:4444',
             description: 'Selenium Grid URL. Required when EXECUTION=remote.'
         )
+        choice(
+            name: 'SUITE_FILE',
+            choices: ['testng.xml', 'SmokeSuite.xml', 'RegressionSuite.xml', 'CucumberSuite.xml'],
+            description: 'TestNG suite file to execute.'
+        )
     }
 
     stages {
@@ -57,7 +62,7 @@ pipeline {
                     "APP_URL=${params.APP_URL}",
                     "SELENIUM_GRID_URL=${params.SELENIUM_GRID_URL}"
                 ]) {
-                    bat 'mvn clean test'
+                    bat "mvn clean test -DsuiteXmlFile=${params.SUITE_FILE}"
                 }
             }
         }
@@ -66,7 +71,7 @@ pipeline {
     post {
         always {
             junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
-            archiveArtifacts allowEmptyArchive: true, artifacts: 'Report/**/*.html, Extend_20Report/screenshots/**/*.png, target/surefire-reports/**/*'
+            archiveArtifacts allowEmptyArchive: true, artifacts: 'Report/**/*.html, ExtentReport/screenshots/**/*.png, target/surefire-reports/**/*'
         }
     }
 }

@@ -9,7 +9,7 @@
     <test name="Add Location Test" enabled="true">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="tests.AddLocationTest"/>
+            <class name="tests.LoginTest"/>
         </classes>
     </test>
 </suite>

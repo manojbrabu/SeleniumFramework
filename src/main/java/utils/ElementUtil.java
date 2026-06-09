@@ -36,10 +36,20 @@ public class ElementUtil {
     }
 
     public static boolean sendKeys(WebElement element, String value, String elementName) {
+
+        WaitUtils.visibilityOf(element);
+        String inputType = element.getAttribute("type");
+        String inputId = element.getAttribute("id");
+        String inputName = element.getAttribute("name");
+        boolean isPasswordField = "password".equalsIgnoreCase(inputType)
+                || (inputId != null && inputId.toLowerCase().contains("password"))
+                || (inputName != null && inputName.toLowerCase().contains("password"));
         try {
-            WaitUtils.visibilityOf(element);
             element.clear();
             element.sendKeys(value);
+            if (isPasswordField) {
+                value = "*****";
+            }
             ExtentManager.test().pass("Entered value '" + value + "' into " + elementName);
             return true;
         } catch (Exception e) {
@@ -63,11 +73,15 @@ public class ElementUtil {
     public static boolean isDisplayed(WebElement element, String elementName) {
         try {
             WaitUtils.visibilityOf(element);
-            element.isDisplayed();
-            ExtentManager.test().pass("Element '" + elementName + "' is displayed ");
-            return true;
+            boolean displayed = element.isDisplayed();
+            if (displayed) {
+                ExtentManager.test().pass("Element '" + elementName + "' is displayed");
+            } else {
+                ExtentManager.test().fail("Element '" + elementName + "' is NOT displayed");
+            }
+            return displayed;
         } catch (Exception e) {
-            ExtentManager.test().fail("Element '" + elementName + "' is NOT displayed "+ " - " + e.getMessage(),
+            ExtentManager.test().fail("Element '" + elementName + "' is NOT displayed - " + e.getMessage(),
                     MediaEntityBuilder.createScreenCaptureFromPath(ScreenshotUtils.capture(DriverManager.getDriver(),
                             Reporter.getCurrentTestResult().getTestName())).build());
             return false;
@@ -86,7 +100,7 @@ public class ElementUtil {
     public static WebElement findElement(WebDriver driver, By byElement, String elementName){
 
         try{
-            WaitUtils.visibilityOfElementLocatiod(byElement);
+            WaitUtils.visibilityOfElementLocated(byElement);
             WebElement element = driver.findElement(byElement);
             return element;
         }catch (Exception e){

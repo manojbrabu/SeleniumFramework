@@ -1,6 +1,5 @@
 package utils;
 
-import base.BaseTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import org.testng.Assert;
 

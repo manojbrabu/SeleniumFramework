@@ -1,25 +1,35 @@
 package utils;
 
 import com.aventstack.extentreports.ExtentTest;
-import org.testng.*;
-
+import org.testng.ISuite;
+import org.testng.ISuiteListener;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
 
 public class TestListener implements ITestListener, ISuiteListener {
 
     @Override
-    public void onStart(ISuite suite){
-       ExtentManager.initReport(suite.getName());
+    public void onStart(ISuite suite) {
+        ExtentManager.initReport(suite.getName());
     }
+
     @Override
     public void onTestStart(ITestResult result) {
-        ExtentTest test = ExtentManager.getInstance().createTest(result.getMethod().getDescription());
+        String testName = result.getMethod().getDescription();
+        if (testName == null || testName.isBlank()) {
+            testName = result.getMethod().getMethodName();
+        }
+
+        ExtentTest test = ExtentManager.getInstance().createTest(testName);
         ExtentManager.setTest(test);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        ExtentManager.test().pass("Test Passed");
-        ExtentManager.removeTest();
+        if (ExtentManager.test() != null) {
+            ExtentManager.test().pass("Test Passed");
+            ExtentManager.removeTest();
+        };
     }
 
     @Override
@@ -40,7 +50,6 @@ public class TestListener implements ITestListener, ISuiteListener {
 
     @Override
     public void onFinish(ISuite suite) {
-        ExtentManager.getInstance().flush();
-        ExtentManager.unLoad();
+        ExtentManager.unload();
     }
 }

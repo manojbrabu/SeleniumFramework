@@ -12,16 +12,18 @@ import utils.DriverManager;
 public class AddLocationTest extends BaseTest {
 
     @Test(description = "TC04_Verify User is able to Add location")
-    public void addLocations(){
-
-        //Login to Application
+    public void addLocations() {
         LoginOrange login = new LoginOrange();
-        login.loginOrangeApplication(ConfigReader.getProperty("username"), ConfigReader.getProperty("password"));
+        login.loginOrangeApplication(
+                ConfigReader.getSetting("ORANGE_APP_USERNAME", "username", ""),
+                ConfigReader.getSetting("ORANGE_APP_PASSWORD", "password", "")
+        );
 
         HomePage dashboard = new HomePage(DriverManager.getDriver());
         dashboard.navigateToAdmin();
+
         AdminPage admin = new AdminPage(DriverManager.getDriver());
         Assert.assertTrue(admin.isAdminPageDisplayed());
-        Assert.assertTrue(dashboard.navigateToMenu("Organization","Locations"));
+        Assert.assertTrue(dashboard.navigateToMenu("Organization", "Locations"));
     }
 }

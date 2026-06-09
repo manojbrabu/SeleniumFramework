@@ -1,6 +1,7 @@
 package tests;
 
 import BusinessFlow.LoginOrange;
+import base.BasePage;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -11,27 +12,32 @@ import page.HomePage;
 import utils.ConfigReader;
 import utils.DriverManager;
 
-public class AddUserTest extends BaseTest {
+public class AddUserPage extends BaseTest {
 
     @Parameters("userName")
     @Test(description = "TC02_Verify user is able to add new users")
-    public void addUserTest(String userName) {
-        LoginOrange login = new LoginOrange();
-        login.loginOrangeApplication(
-                ConfigReader.getSetting("ORANGE_APP_USERNAME", "username", ""),
-                ConfigReader.getSetting("ORANGE_APP_PASSWORD", "password", "")
-        );
+    public void addUserTest(String userName){
 
+        //Login to Application
+        LoginOrange login = new LoginOrange();
+        login.loginOrangeApplication(ConfigReader.getProperty("username"), ConfigReader.getProperty("password"));
+
+        //Navigate to Admin Page
         HomePage homepage = new HomePage(DriverManager.getDriver());
         homepage.navigateToAdmin();
 
+        //Verify Admin page is displayed
         AdminPage adminPage = new AdminPage(DriverManager.getDriver());
         adminPage.isAdminPageDisplayed();
 
-        homepage.navigateToMenu("User Management", "Users");
+        //Naigate to Usersmanagement>Users
+       homepage.navigateToMenu("User Management","Users");
+
+        //Click Add button
         adminPage.clickAdd();
 
         AddUser adduser = new AddUser(DriverManager.getDriver());
+
         adduser.selectUserRole("Admin");
         adduser.enterEmployeeName("Orange Test");
         adduser.selectStatus("Enabled");
@@ -39,7 +45,7 @@ public class AddUserTest extends BaseTest {
         adduser.enterPassword("Manoj1234");
         adduser.enterConfirmPassword("Manoj1234");
         adduser.saveUser();
-
         Assert.assertTrue(adminPage.verifySuccessMessage());
     }
+
 }
